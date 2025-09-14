@@ -26,6 +26,10 @@
 
 #pagebreak()
 
+#outline(depth:3)
+
+#pagebreak()
+
 = Introduction
 
 == Purpose
