@@ -65,6 +65,7 @@
               nil
               tcpdump
               scrcpy
+              mermaid-cli
               android-tools
               nixfmt
             ]);
