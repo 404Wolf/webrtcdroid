@@ -1,3 +1,16 @@
+#import "@preview/glossarium:0.5.9": make-glossary, register-glossary, print-glossary, gls, glspl
+#show: make-glossary
+
+#let entry-list = (
+  (
+    key: "kuleuven",
+    short: "KU Leuven",
+    long: "Katholieke Universiteit Leuven",
+    description: "A university in Belgium.",
+  ),
+)
+#register-glossary(entry-list)
+
 #align(center + horizon)[
  #v(-10em)
 
@@ -32,11 +45,11 @@
 
 = Introduction
 
-== Purpose
+== Purpose // alesandro
 
 // Describe the purpose of this SRS and its intended audience.
 
-== Document Conventions
+== Document Conventions // wolf
 
 // Describe any standards or typographical conventions that were followed when
 // writing this SRS, such as fonts or highlighting that have special
@@ -44,7 +57,7 @@
 // requirements are assumed to be inherited by detailed requirements, or whether
 // every requirement statement is to have its own priority.
 
-== Intended Audience and Reading Suggestions
+== Intended Audience and Reading Suggestions // wolf
 
 // Describe the different types of reader that the document is intended for,
 // such as developers, project managers, marketing staff, users, testers, and
@@ -53,7 +66,7 @@
 // overview sections and proceeding through the sections that are most pertinent
 // to each reader type.
 
-== Project Scope
+== Project Scope // alesandro
 
 // Provide a short description of the software being specified and its purpose,
 // including relevant benefits, objectives, and goals. Relate the software to
@@ -63,7 +76,7 @@
 // its own scope statement as a subset of the long-term strategic product
 // vision.
 
-== References
+== References // wolf
 
 // List any other documents or Web addresses to which this SRS refers. These may
 // include user interface style guides, contracts, standards, system
@@ -74,7 +87,7 @@
 
 = Overall Description
 
-== Product Perspective
+== Product Perspective // wolf
 
 // Describe the context and origin of the product being specified in this SRS.
 // For example, state whether this product is a follow-on member of a product
@@ -85,7 +98,7 @@
 // components of the overall system, subsystem interconnections, and external
 // interfaces can be helpful.
 
-== Product Features
+== Product Features // alesandro
 
 // Summarize the major features the product contains or the significant
 // functions that it performs or lets the user perform. Details will be provided
@@ -94,7 +107,7 @@
 // the major groups of related requirements and how they relate, such as a top
 // level data flow diagram or a class diagram, is often effective.
 
-== User Classes and Characteristics
+== User Classes and Characteristics // alesandro
 
 // Identify the various user classes that you anticipate will use this product.
 // User classes may be differentiated based on frequency of use, subset of
@@ -104,13 +117,13 @@
 // classes. Distinguish the favored user classes from those who are less
 // important to satisfy.
 
-== Operating Environment
+== Operating Environment // wolf
 
 // Describe the environment in which the software will operate, including the hardware platform,
 // operating system and versions, and any other software components or applications with which it
 // must peacefully coexist.
 
-== Design and Implementation Constraints
+== Design and Implementation Constraints // wolf
 
 // Describe any items or issues that will limit the options available to the developers. These might
 // include: corporate or regulatory policies; hardware limitations (timing requirements, memory
@@ -119,13 +132,13 @@
 // considerations; design conventions or programming standards (for example, if the customer's
 // organization will be responsible for maintaining the delivered software).
 
-== User Documentation
+== User Documentation // wolf
 
 // List the user documentation components (such as user manuals, on-line help, and tutorials) that
 // will be delivered along with the software. Identify any known user documentation delivery formats
 // or standards.
 
-== Assumptions and Dependencies
+== Assumptions and Dependencies // wolf
 
 // List any assumed factors (as opposed to known facts) that could affect the requirements stated in
 // the SRS. These could include third-party or commercial components that you plan to use, issues
@@ -135,14 +148,24 @@
 // another project, unless they are already documented elsewhere (for example, in the vision and
 // scope document or the project plan).
 
-= System Features
+= System Features // alessandro
 
 // This template illustrates organizing the functional requirements for the product by system
 // features, the major services provided by the product. You may prefer to organize this section by
 // use case, mode of operation, user class, object class, functional hierarchy, or combinations of
 // these, whatever makes the most logical sense for your product.
+//
+// - Getting a screen and audio streamed to a react component in a web browser.
+// - Creating a programmatic way to "spin up" an emulator with an HTTP API.
+// - Making a front end web appication to use that endpoint and show your running device.
+// - Allow having multiple emulators that are running at the same time.
+// - Sandboxing a android phone in a docker container *with a mounted SD card*.
+// - Supporting controlling the device from the browser over a WebRTC data stream.
+// - "Multiplayer" (many people viewing the same device with a share link).
+// - "Multiplayer" and allowing many people to **control** the same device.
+// - Deploying to edge containers like fly.io OR building a multitenent system on a bare metal instance.
 
-== System Feature 1
+== REST API to manage android instances
 
 // State the feature name in just a few words.
 
@@ -174,29 +197,17 @@
 // REQ-1:
 // REQ-2:
 
-== System Feature 2
+== Live video, audio, and interaaction streaming
+
+// Additional system features follow the same structure as System Feature 1
+
+== Web App to interface with the device manager
 
 // Additional system features follow the same structure as System Feature 1
 
 = External Interface Requirements
 
-== User Interfaces
-
-// Describe the logical characteristics of each interface between the software product and the users.
-// This may include sample screen images, any GUI standards or product family style guides that are
-// to be followed, screen layout constraints, standard buttons and functions (e.g., help) that will
-// appear on every screen, keyboard shortcuts, error message display standards, and so on. Define
-// the software components for which a user interface is needed. Details of the user interface design
-// should be documented in a separate user interface specification.
-
-== Hardware Interfaces
-
-// Describe the logical and physical characteristics of each interface between the software product
-// and the hardware components of the system. This may include the supported device types, the
-// nature of the data and control interactions between the software and the hardware, and
-// communication protocols to be used.
-
-== Software Interfaces
+== Software Interfaces // wolf
 
 // Describe the connections between this product and other specific software components (name
 // and version), including databases, operating systems, tools, libraries, and integrated commercial
@@ -207,17 +218,9 @@
 // implemented in a specific way (for example, use of a global data area in a multitasking operating
 // system), specify this as an implementation constraint.
 
-== Communications Interfaces
+= Other Nonfunctional Requirements // alessandro
 
-// Describe the requirements associated with any communications functions required by this
-// product, including e-mail, web browser, network server communications protocols, electronic
-// forms, and so on. Define any pertinent message formatting. Identify any communication standards
-// that will be used, such as FTP or HTTP. Specify any communication security or encryption issues,
-// data transfer rates, and synchronization mechanisms.
-
-= Other Nonfunctional Requirements
-
-== Performance Requirements
+== Performance Requirements // alessandro
 
 // If there are performance requirements for the product under various circumstances, state them
 // here and explain their rationale, to help the developers understand the intent and make suitable
@@ -225,7 +228,7 @@
 // specific as possible. You may need to state performance requirements for individual functional
 // requirements or features.
 
-== Safety Requirements
+== Safety Requirements // alessandro
 
 // Specify those requirements that are concerned with possible loss, damage, or harm that could
 // result from the use of the product. Define any safeguards or actions that must be taken, as well as
@@ -233,14 +236,14 @@
 // issues that affect the product's design or use. Define any safety certifications that must be
 // satisfied.
 
-== Security Requirements
+== Security Requirements // alessandro
 
 // Specify any requirements regarding security or privacy issues surrounding use of the product or
 // protection of the data used or created by the product. Define any user identity authentication
 // requirements. Refer to any external policies or regulations containing security issues that affect
 // the product. Define any security or privacy certifications that must be satisfied.
 
-== Software Quality Attributes
+== Software Quality Attributes // alessandro
 
 // Specify any additional quality characteristics for the product that will be important to either the
 // customers or the developers. Some to consider are: adaptability, availability, correctness, flexibility,
@@ -260,12 +263,17 @@
 // abbreviations. You may wish to build a separate glossary that spans multiple projects or the entire
 // organization, and just include terms specific to a single project in each SRS.
 
-= Appendix B: Analysis Models
+#print-glossary(
+  entry-list,
+  show-all: true
+)
+
+= Appendix B: Analysis Models // alessandro
 
 // Optionally, include any pertinent analysis models, such as data flow diagrams, class diagrams,
 // state-transition diagrams, or entity-relationship diagrams.
 
-= Appendix C: Issues List
+= Appendix C: Issues List // wolf
 
 // This is a dynamic list of the open requirements issues that remain to be resolved, including
 // TBDs, pending decisions, information that is needed, conflicts awaiting resolution, and the like.
