@@ -46,14 +46,19 @@
           };
         };
 
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
+        devShells.default = typix.lib.${system}.devShell {
+          fontPaths = [
+            "${pkgs.roboto}/share/fonts/truetype"
+          ];
+          packages = [
+            watch-script
+          ] ++ (with pkgs; [
             nil
             tcpdump
             scrcpy
             android-tools
             nixfmt
-          ];
+          ]);
         };
       }
     );

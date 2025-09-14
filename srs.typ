@@ -49,6 +49,10 @@
 
 // Describe the purpose of this SRS and its intended audience.
 
+This SRS lays out the scope of our WebRTC android-in-the-browser project, its
+features, and the general architecture. The intended audience is both developers
+looking to contribute, and potential API consumers of the project.
+
 == Document Conventions // wolf
 
 // Describe any standards or typographical conventions that were followed when
@@ -208,6 +212,9 @@
 = External Interface Requirements
 
 == Software Interfaces // wolf
+
+_Shims_:  For the shim that runs inside the containers alongside android emulators, we will be
+Go has a reference implementation of the WebRTC protocol, called [pion](https://github.com/pion/webrtc), which we will use
 
 // Describe the connections between this product and other specific software components (name
 // and version), including databases, operating systems, tools, libraries, and integrated commercial
