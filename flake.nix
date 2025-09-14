@@ -44,6 +44,14 @@
             type = "app";
             program = pkgs.lib.getExe watch-script;
           };
+          build-diagrams = {
+            type = "app";
+            program = "${(pkgs.writeShellApplication {
+              name = "build-diagrams";
+              runtimeInputs = [ pkgs.mermaid-cli ];
+              text = builtins.readFile ./images/build.sh;
+            })}/bin/build-diagrams";
+          };
         };
 
         formatter =
