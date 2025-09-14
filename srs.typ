@@ -12,7 +12,7 @@
 #register-glossary(entry-list)
 
 #align(center + horizon)[
- #v(-10em)
+  #v(-10em)
 
   #text(size: 24pt, weight: "bold")[
     Software Requirements Specification for _WebRTCDroid_
@@ -39,7 +39,7 @@
 
 #pagebreak()
 
-#outline(depth:3)
+#outline(depth: 3)
 
 #pagebreak()
 
@@ -213,7 +213,7 @@ looking to contribute, and potential API consumers of the project.
 
 == Software Interfaces // wolf
 
-_Shims_:  For the shim that runs inside the containers alongside android emulators, we will be
+_Shims_: For the shim that runs inside the containers alongside android emulators, we will be
 Go has a reference implementation of the WebRTC protocol, called [pion](https://github.com/pion/webrtc), which we will use
 
 // Describe the connections between this product and other specific software components (name
@@ -272,7 +272,7 @@ Go has a reference implementation of the WebRTC protocol, called [pion](https://
 
 #print-glossary(
   entry-list,
-  show-all: true
+  show-all: true,
 )
 
 = Appendix B: Analysis Models // alessandro

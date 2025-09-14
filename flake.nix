@@ -5,6 +5,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     typix.url = "github:loqusion/typix";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    treefmt.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
@@ -13,6 +14,7 @@
       nixpkgs,
       typix,
       flake-utils,
+      treefmt,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -28,9 +30,7 @@
         watch-script = typix.lib.${system}.watchTypstProject typix-config;
         typix-config = {
           typstSource = "./srs.typ";
-          fontPaths = [
-            "${pkgs.roboto}/share/fonts/truetype"
-          ];
+          fontPaths = [ "${pkgs.roboto}/share/fonts/truetype" ];
         };
       in
       {
@@ -46,19 +46,28 @@
           };
         };
 
+        formatter =
+          let
+            treefmtconfig = treefmt.lib.evalModule pkgs {
+              projectRootFile = "flake.nix";
+              programs.typstyle.enable = true;
+              programs.nixfmt.enable = true;
+              programs.google-java-format.enable = true;
+            };
+          in
+          treefmtconfig.config.build.wrapper;
+
         devShells.default = typix.lib.${system}.devShell {
-          fontPaths = [
-            "${pkgs.roboto}/share/fonts/truetype"
-          ];
-          packages = [
-            watch-script
-          ] ++ (with pkgs; [
-            nil
-            tcpdump
-            scrcpy
-            android-tools
-            nixfmt
-          ]);
+          fontPaths = [ "${pkgs.roboto}/share/fonts/truetype" ];
+          packages =
+            [ watch-script ]
+            ++ (with pkgs; [
+              nil
+              tcpdump
+              scrcpy
+              android-tools
+              nixfmt
+            ]);
         };
       }
     );

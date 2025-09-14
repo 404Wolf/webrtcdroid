@@ -29,56 +29,59 @@ let
 in
 pkgs.writeShellApplication {
   name = "emulator";
-  runtimeInputs = [ android-env.emulator android-env.androidsdk ];
-  text = 
+  runtimeInputs = [
+    android-env.emulator
+    android-env.androidsdk
+  ];
+  text =
     #bash
     ''
-  export ANDROID_HOME="${android-env.androidsdk}"
-  export ANDROID_SDK_ROOT="$ANDROID_HOME"
+      export ANDROID_HOME="${android-env.androidsdk}"
+      export ANDROID_SDK_ROOT="$ANDROID_HOME"
 
-  # Create AVD if it doesn't exist
-  if [ ! -d "$HOME/.android/avd/test.avd" ]; then
-    echo "Creating AVD..."
-    echo "no" | avdmanager create avd \
-      -n test \
-      -k "system-images;android-30;google_apis_playstore;x86_64" \
-      -f
-  fi
+      # Create AVD if it doesn't exist
+      if [ ! -d "$HOME/.android/avd/test.avd" ]; then
+        echo "Creating AVD..."
+        echo "no" | avdmanager create avd \
+          -n test \
+          -k "system-images;android-30;google_apis_playstore;x86_64" \
+          -f
+      fi
 
-  # Start emulator
-  echo "Starting Android emulator..."
-  emulator \
-    -avd test \
-    -no-window \
-    -no-audio \
-    -gpu swiftshader_indirect \
-    -camera-back none \
-    -camera-front none \
-    -memory 2048 \
-    -partition-size 4096 \
-    &
+      # Start emulator
+      echo "Starting Android emulator..."
+      emulator \
+        -avd test \
+        -no-window \
+        -no-audio \
+        -gpu swiftshader_indirect \
+        -camera-back none \
+        -camera-front none \
+        -memory 2048 \
+        -partition-size 4096 \
+        &
 
-  EMULATOR_PID=$!
-  echo "Emulator started with PID: $EMULATOR_PID"
+      EMULATOR_PID=$!
+      echo "Emulator started with PID: $EMULATOR_PID"
 
-  # Wait for device to boot
-  echo "Waiting for device to boot..."
-  adb wait-for-device
+      # Wait for device to boot
+      echo "Waiting for device to boot..."
+      adb wait-for-device
 
-  # Wait for boot to complete
-  while [ "$(adb shell getprop sys.boot_completed 2>/dev/null)" != "1" ]; do
-    echo "Waiting for boot to complete..."
-    sleep 2
-  done
+      # Wait for boot to complete
+      while [ "$(adb shell getprop sys.boot_completed 2>/dev/null)" != "1" ]; do
+        echo "Waiting for boot to complete..."
+        sleep 2
+      done
 
-  echo "Android emulator is ready!"
+      echo "Android emulator is ready!"
 
-  # Setup scrcpy server
-  echo "Setting up scrcpy server..."
-  adb push ${./scrcpy-server-v2.5.jar} /data/local/tmp/scrcpy-server.jar
-  adb shell chmod 755 /data/local/tmp/scrcpy-server.jar
+      # Setup scrcpy server
+      echo "Setting up scrcpy server..."
+      adb push ${./scrcpy-server-v2.5.jar} /data/local/tmp/scrcpy-server.jar
+      adb shell chmod 755 /data/local/tmp/scrcpy-server.jar
 
-  echo "Setup complete. Emulator is running."
-  wait $EMULATOR_PID
-'';
+      echo "Setup complete. Emulator is running."
+      wait $EMULATOR_PID
+    '';
 }
