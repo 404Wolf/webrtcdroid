@@ -280,7 +280,7 @@ Go has a reference implementation of the WebRTC protocol, called [pion](https://
 // Optionally, include any pertinent analysis models, such as data flow diagrams, class diagrams,
 // state-transition diagrams, or entity-relationship diagrams.
 
-#figure(image("images/graph.png"))
+#figure(image("images/overall-system.svg"))
 
 = Appendix C: Issues List // wolf
 

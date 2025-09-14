@@ -1,0 +1,31 @@
+%%{init: {"flowchart": {"htmlLabels": false}}}%%
+graph TD
+    A[Web Frontend] -->|HTTP API Calls| C[Go Server]
+    A <-->|WebRTC Connection| J[Shim 1]
+    A <-->|WebRTC Connection| L[Shim 2]
+    A <-->|WebRTC Connection| N[Shim N]
+
+    C -->|Spawn Container| F[Docker Container 1]
+    C -->|Spawn Container| G[Docker Container 2]
+    C -->|Spawn Container| H[Docker Container N]
+
+    subgraph F[Docker Container 1]
+        I[Emulator Instance 1]
+        J[Shim 1]
+        I -.->|Video/Audio Output| J
+        J -.->|Input Commands| I
+    end
+
+    subgraph G[Docker Container 2]
+        K[Emulator Instance 2]
+        L[Shim 2]
+        K -.->|Video/Audio Output| L
+        L -.->|Input Commands| K
+    end
+
+    subgraph H[Docker Container N]
+        M[Emulator Instance N]
+        N[Shim N]
+        M -.->|Video/Audio Output| N
+        N -.->|Input Commands| M
+    end
