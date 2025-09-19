@@ -168,6 +168,24 @@ looking to contribute, and potential API consumers of the project.
 // - "Multiplayer" (many people viewing the same device with a share link).
 // - "Multiplayer" and allowing many people to **control** the same device.
 // - Deploying to edge containers like fly.io OR building a multitenent system on a bare metal instance.
+== Priority Implementation Order
+1. WebRTC video/audio streaming to React component
+2. HTTP API for emulator lifecycle management  
+3. Web dashboard for emulator access and control
+4. Multi-instance concurrent emulator support
+5. Docker containerization with SD card mounting
+6. Browser-based device control via WebRTC data channels
+7. Multiplayer viewing with shareable links
+8. Collaborative control with multiple users
+9. Production deployment (edge or bare metal)
+
+== Technical Stack
+- *Backend*: Go with Pion WebRTC library
+- *Frontend*: React with React Router, potential Next.js
+- *Communication*: REST API, future gRPC migration
+- *Runtime*: Podman OCI with Nix image building
+- *Android*: Official emulators with custom image support (LineageOS via Robotnix)
+
 
 == REST API to manage android instances
 
@@ -235,6 +253,11 @@ Go has a reference implementation of the WebRTC protocol, called [pion](https://
 // specific as possible. You may need to state performance requirements for individual functional
 // requirements or features.
 
+- Concurrent emulators: n+ per server node
+- Streaming latency: $< n m s$ end-to-end
+- Container startup: $<n $ seconds
+- Multi-viewer support: 50 viewers, 10 controllers per instance
+
 == Safety Requirements // alessandro
 
 // Specify those requirements that are concerned with possible loss, damage, or harm that could
@@ -242,6 +265,11 @@ Go has a reference implementation of the WebRTC protocol, called [pion](https://
 // actions that must be prevented. Refer to any external policies or regulations that state safety
 // issues that affect the product's design or use. Define any safety certifications that must be
 // satisfied.
+// 
+- Container isolation with read-only filesystems
+- Encrypted WebRTC communications (DTLS/SRTP)
+- Resource quotas and automatic cleanup
+- Session-based access controls
 
 == Security Requirements // alessandro
 
@@ -257,6 +285,11 @@ Go has a reference implementation of the WebRTC protocol, called [pion](https://
 // interoperability, maintainability, portability, reliability, reusability, robustness, testability, and
 // usability. Write these to be specific, quantitative, and verifiable when possible. At the least, clarify
 // the relative preferences for various attributes, such as ease of use over ease of learning.
+// 
+- *Reliability*: 99.9% uptime with automatic recovery
+- *Scalability*: Linear performance scaling to design limits  
+- *Usability*: 5-minute learning curve for new users
+- *Maintainability*: >80% test coverage, daily deployment capability
 
 = Other Requirements
 
